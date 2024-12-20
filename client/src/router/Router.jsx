@@ -17,6 +17,8 @@ import CreateJob from '../Pages/CreateJob';
 import UpdateJob from '../Pages/UpdateJob';
 import JobDetails from '../Pages/JobDetails';
 import Login from '../Pages/Login';
+import Error404 from '../components/Error';
+
 
   const router = createBrowserRouter([
     {
@@ -47,6 +49,10 @@ import Login from '../Pages/Login';
         {
           path:"/jobs/:id",
           element: <JobDetails/>,
+        },
+        {
+          path:"*",
+          element: <Error404/>,
         }
       ]
     },

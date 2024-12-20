@@ -29,10 +29,11 @@ const Navbar = () => {
     { path: "/my-job", title: "My Jobs" },
     { path: "/salary", title: "Salary estimate" },
     { path: "/post-job", title: "Post A Job" },
+    { path: "/Resume", title: "Build Your Resume" },
   ];
   return (
-    <header className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
-      <nav className="flex justify-between items-center py-6">
+    <header className="container px-4 mx-auto max-w-screen-2xl xl:px-24">
+      <nav className="flex items-center justify-between py-6">
         <a href="/" className="flex items-center gap-2 text-2xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +55,7 @@ const Navbar = () => {
         </a>
 
         {/* nav items */}
-        <ul className="hidden md:flex gap-12">
+        <ul className="hidden gap-12 md:flex">
           {navItems.map(({ path, title }) => (
             <li key={path} className="text-base text-primary">
               <NavLink
@@ -68,36 +69,36 @@ const Navbar = () => {
         </ul>
 
         {/* sign up signout btn */}
-        <div className="text-base text-primary font-medium space-x-5 hidden lg:block">
+        <div className="hidden space-x-5 text-base font-medium text-primary lg:block">
           {user ? (
             <>
-              <div className="flex gap-4 items-center">
+              <div className="flex items-center gap-4">
                 <div class="flex -space-x-2 overflow-hidden">
                   {
                     user?.photoURL ? <> <img
-                    className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                    className="inline-block w-10 h-10 rounded-full ring-2 ring-white"
                     src={user?.photoURL}
                     alt=""
                   /></> : <> <img
-                    className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                    className="inline-block w-10 h-10 rounded-full ring-2 ring-white"
                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                     alt=""
                   /></>
                   }
                  
                 </div>
-                <button onClick={handleLogout} className="py-2 px-5 border rounded hover:bg-blue hover:text-white">Log out</button>
+                <button onClick={handleLogout} className="px-5 py-2 border rounded hover:bg-blue hover:text-white">Log out</button>
               </div>
             </>
           ) : (
             <>
               {" "}
-              <Link to="/login" className="py-2 px-5 border rounded">
+              <Link to="/login" className="px-5 py-2 border rounded">
                 Log in
               </Link>
               <Link
                 to="/sign-up"
-                className="bg-blue py-2 px-5 text-white rounded"
+                className="px-5 py-2 text-white rounded bg-blue"
               >
                 Sign up
               </Link>
@@ -106,7 +107,7 @@ const Navbar = () => {
         </div>
 
         {/* mobile menu */}
-        <div className="md:hidden block">
+        <div className="block md:hidden">
           <button onClick={handleMenuToggler}>
             {isMenuOpen ? (
               <>
@@ -131,7 +132,7 @@ const Navbar = () => {
           {navItems.map(({ path, title }) => (
             <li
               key={path}
-              className="text-base text-white first:text-white py-1"
+              className="py-1 text-base text-white first:text-white"
             >
               <NavLink
                 onClick={handleMenuToggler}
@@ -143,7 +144,7 @@ const Navbar = () => {
             </li>
           ))}
 
-          <li className="text-white py-1">
+          <li className="py-1 text-white">
             <Link to="login">Log in</Link>
           </li>
         </ul>

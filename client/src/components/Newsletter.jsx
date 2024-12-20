@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { FaEnvelopeOpenText, FaRocket } from "react-icons/fa6";
+import { AuthContext } from "../context/AuthProvider";
+
 
 const Newsletter = () => {
   const [email, setEmail] = useState('');
   const baseUrl = "http://localhost:5000";
+  const { user } = React.useContext(AuthContext);
+
 
   const sendEmail = async () => {
-    let dataSend = { email: email };
+    let dataSend = { email: user.email };
     console.log(dataSend);
 
     try {
@@ -40,14 +44,14 @@ const Newsletter = () => {
           Ut esse eiusmod aute. Sit enim labore dolore. Aute ea fugiat commodo ea foes.
         </p>
         <div className="w-full space-y-4">
-          <input
+          {/* <input
             type="email"
             placeholder="name@mail.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="block w-full py-2 pl-3 border focus:outline-none"
             required
-          />
+          /> */}
           <input
             onClick={sendEmail}
             type="submit"
