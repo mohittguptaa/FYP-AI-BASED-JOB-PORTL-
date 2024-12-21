@@ -1,13 +1,36 @@
-import React, { useState } from "react";
-import { FaEnvelopeOpenText, FaRocket } from "react-icons/fa6";
+import React, { useState, useContext } from "react";
+import { FaEnvelopeOpenText, FaRocket } from "react-icons/fa";
 import { AuthContext } from "../context/AuthProvider";
 
-
 const Newsletter = () => {
-  const [email, setEmail] = useState('');
   const baseUrl = "http://localhost:5000";
-  const { user } = React.useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
+  const [showModal, setShowModal] = useState(false);
+  const [pdfFile, setPdfFile] = useState(null);
+
+  const handleButtonClick = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleFileChange = (event) => {
+    if (event.target.files.length > 0) {
+      setPdfFile(event.target.files[0]);
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (pdfFile) {
+      console.log("The PDF has been submitted.");
+      setShowModal(false);
+      setPdfFile(null);
+    }
+  };
 
   const sendEmail = async () => {
     let dataSend = { email: user.email };
@@ -44,14 +67,6 @@ const Newsletter = () => {
           Ut esse eiusmod aute. Sit enim labore dolore. Aute ea fugiat commodo ea foes.
         </p>
         <div className="w-full space-y-4">
-          {/* <input
-            type="email"
-            placeholder="name@mail.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="block w-full py-2 pl-3 border focus:outline-none"
-            required
-          /> */}
           <input
             onClick={sendEmail}
             type="submit"
@@ -71,10 +86,42 @@ const Newsletter = () => {
         </p>
         <div className="w-full space-y-4">
           <input
+            onClick={handleButtonClick}
             type="submit"
             value="Upload your resume"
             className="block w-full py-2 font-semibold text-white rounded-sm cursor-pointer bg-blue"
           />
+
+{showModal && (
+  <div className="modal">
+    <div className="modal-content">
+      {/* Close button for the modal */}
+      <span className="close" onClick={handleCloseModal}>
+        &times;
+      </span>
+
+      {/* File submission form */}
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="pdf-upload" className="form-label">
+            Upload your PDF:
+          </label>
+          <input
+            id="pdf-upload"
+            type="file"
+            accept="application/pdf"
+            onChange={handleFileChange}
+            className="form-input"
+          />
+        </div>
+
+        <button type="submit" className="submit-button">
+          Submit PDF
+        </button>
+      </form>
+    </div>
+  </div>
+)}
         </div>
       </div>
     </div>
@@ -82,3 +129,7 @@ const Newsletter = () => {
 };
 
 export default Newsletter;
+
+
+
+
